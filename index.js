@@ -1,12 +1,12 @@
 let signUpBtn = document.getElementById("signUpBtn");
-let dataBase = []; 
+let dataBase = [{email:"admin",password:"admin"}]; 
 
 //call back database whenever refresh
 if (localStorage.length>0) {
   //looping for input order keys to empty array which is "dataBase"
-  for(let k=1;k<=localStorage.length;k++){
+  for(let i=1;i<=localStorage.length;i++){
       function updateDB(){
-        let keymain ="key"+k;
+        let keymain ="key"+i;
         dataBase.push(JSON.parse(localStorage.getItem(keymain)))};
         updateDB()
   } 
@@ -20,17 +20,16 @@ signUpBtn.onclick = function() {
   let signUpResult =document.getElementById("signUpResult");
   emailSignup=emailSignup.value;
   passwordSignup=passwordSignup.value;
-  
-  let dataBasPlus = {email:emailSignup,password:passwordSignup}
-   dataBase.push(dataBasPlus);
-   signUpResult.innerHTML="Success";
+        let dataBasPlus = {email:emailSignup,password:passwordSignup}
+        dataBase.push(dataBasPlus);
+        signUpResult.innerHTML="Success";
    //looping for input order keys and values to localStorage from signup email and password 
-   for (let j =dataBase.length; j >localStorage.length; j++) {
-    keys = "key"+j;
-    var dataBasPlusstr= JSON.stringify(dataBasPlus);
-    localStorage.setItem(keys,dataBasPlusstr);
+    for (let i =dataBase.length-1; i >localStorage.length; i++) {
+        keys = "key"+i;
+        var dataBasPlusstr= JSON.stringify(dataBasPlus);
+        localStorage.setItem(keys,dataBasPlusstr);
     break;
-  }
+ }
 };
 }catch(err) {console.log(err)};
  
@@ -56,4 +55,3 @@ signinBtn.onclick = function() {
      }
 }; 
 }catch(err) {console.log(err)};
-
