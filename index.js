@@ -24,7 +24,7 @@ signUpBtn.onclick = function() {
   let dataBasePlus = {email:emailSignup,password:passwordSignup}
   //signup email and password check function
   
-  function checkArrayAndUpdate(arr, email, password) {
+ checkArrayAndUpdate = (arr, email, password) => {
     const isObjectExists = arr.some(obj => obj.email === email && obj.password === password);
   
     if (isObjectExists) {
@@ -52,18 +52,21 @@ signinBtn.onclick = function() {
 
     let emailAddress= document.getElementById("emailAddress");
     let passwordInput = document.getElementById("passwordInput");
-    let signingResult = document.getElementById("signinResult");
+    let signinResult = document.getElementById("signinResult");
  
     emailAddress=emailAddress.value;
     passwordInput=passwordInput.value;
-//looping for check input email and password data with dataBase objects
-    for (let i = 0; i<dataBase.length; i++){
-      if (emailAddress== dataBase[i].email && passwordInput==dataBase[i].password) {
-      signingResult.innerHTML="Welcome Back!!";
-      i=dataBase.length;
+//check email and password from dataBase with Input function
+     checkArrayAndUpdate = (arr, email, password) => {
+      const isObjectExists = arr.some(obj => obj.email === email && obj.password === password);
+    
+      if (isObjectExists) {
+        signinResult.innerHTML="Welcome Back!!";
       } else {
-        signingResult.innerHTML="Please Signup!!"
+        signinResult.innerHTML="Please Signup!!"
       }
-     }
+    }
+    checkArrayAndUpdate(dataBase,emailAddress,passwordInput)
+
 }; 
 }catch(err) {console.log(err)};
