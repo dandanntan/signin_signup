@@ -4,7 +4,7 @@ let dataBase = [{email:"admin",password:"admin"}];
 //call back database whenever refresh
 if (localStorage.length>0) {
   //looping for input order keys to empty array which is "dataBase"
-  for(let i=1;i<=localStorage.length;i++){
+  for(let i=1 ;i<=localStorage.length;i++){
       function updateDB(){
         let keymain ="key"+i;
         dataBase.push(JSON.parse(localStorage.getItem(keymain)))};
@@ -20,17 +20,29 @@ signUpBtn.onclick = function() {
   let signUpResult =document.getElementById("signUpResult");
   emailSignup=emailSignup.value;
   passwordSignup=passwordSignup.value;
-        let dataBasPlus = {email:emailSignup,password:passwordSignup}
-        dataBase.push(dataBasPlus);
-        signUpResult.innerHTML="Success";
-   //looping for input order keys and values to localStorage from signup email and password 
-    for (let i =dataBase.length-1; i >localStorage.length; i++) {
+  
+  let dataBasePlus = {email:emailSignup,password:passwordSignup}
+  //signup email and password check function
+  
+  function checkArrayAndUpdate(arr, email, password) {
+    const isObjectExists = arr.some(obj => obj.email === email && obj.password === password);
+  
+    if (isObjectExists) {
+      signUpResult.innerHTML="User Exits!!!";
+    } else {
+      arr.push({ email, password });
+      signUpResult.innerHTML="Success";
+  //looping for input order keys and values to localStorage from signup email and password
+      for (let i =dataBase.length-1; i >localStorage.length; i++) {
         keys = "key"+i;
-        var dataBasPlusstr= JSON.stringify(dataBasPlus);
-        localStorage.setItem(keys,dataBasPlusstr);
-    break;
- }
-};
+        var dataBasePlusstr= JSON.stringify(dataBasePlus);
+        localStorage.setItem(keys,dataBasePlusstr);
+        break; 
+       }
+    }
+  }
+  checkArrayAndUpdate(dataBase,emailSignup,passwordSignup)
+ };
 }catch(err) {console.log(err)};
  
 //Signin (email and password input function)
